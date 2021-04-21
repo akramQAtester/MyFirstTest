@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,7 +10,9 @@ namespace MyFirstTest.Pages
     class TMPage
     {
 
-        public void createTM(IWebDriver driver)
+       
+        
+    public void createTM(IWebDriver driver)
         {
             Thread.Sleep(5000);
             //Click create new button
@@ -45,18 +48,29 @@ namespace MyFirstTest.Pages
 
             IWebElement actualDecription = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[2]/td[3]"));
 
-            if (actualDecription.Text != "ahmed testing")
+            //option 1
+           // Assert.That(actualDecription.Text, Is.EqualTo("ahmed testing"), "Test Failed");
+
+            //Option 2
+            if (actualDecription.Text != "ahmed testing") 
             {
                 Console.WriteLine("TM Test Passed  ");
             }
             else
             {
                 Console.WriteLine("TM Test Failed ");
+            //    Assert.Fail("TM Test Failed");
             }
 
         }
-        public void editTM(IWebDriver driver)
+
+
+    public void EditTM(IWebDriver driver)
         {
+            Thread.Sleep(3000);
+            // Go to Last page
+            IWebElement lastPage = driver.FindElement(By.XPath("//span[@class='k-icon k-i-seek-e']"));
+            lastPage.Click();
             // Click the edit Btn 
 
             IWebElement edit_Btn = driver.FindElement(By.XPath("//tbody/tr[2]/td[5]/a[1]"));
@@ -93,8 +107,9 @@ namespace MyFirstTest.Pages
 
 
         }
-        public void deleteTM(IWebDriver driver)
+    public void deleteTM(IWebDriver driver)
         {
+            Thread.Sleep(3000);
             // click delete (Deleting 2nd Row)
             IWebElement DeleteButton = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[2]/td[5]/a[2]"));
             DeleteButton.Click();

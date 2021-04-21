@@ -1,4 +1,6 @@
 ﻿using MyFirstTest.Pages;
+using MyFirstTest.Utilities;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
@@ -8,39 +10,61 @@ using System.Threading;
 
 namespace MyFirstTest
 {
-    class Program
+
+    [TestFixture] // collect of steps
+    [Parallelizable] // faciltes to run test simultaneously
+    class Program : CommonDriver
     {
-        static void Main(string[] args)
+        //static void Main(string[] args)
+        //{
+
+        //}
+
+
+        [Test]
+        public void CreateTMTest()
         {
-            Console.WriteLine("Hello World!");
 
-            
-            // launch turnup portal
-            IWebDriver driver = new ChromeDriver(@"C:\Users\");
-            
-
-
-            //page objects for login
-            LoginPage loginObj = new LoginPage();
-            loginObj.loginsteps(driver);
-
-            // homje page object
-            HomePage homeObj = new HomePage();
+           // home page object
+             HomePage homeObj = new HomePage();
             homeObj.navigateToTM(driver);
 
 
-            // tm page object
-            TMPage tmObj = new TMPage();
+           // tm page object
+             TMPage tmObj = new TMPage();
             tmObj.createTM(driver);
-            tmObj.editTM(driver);
-            tmObj.deleteTM(driver);
-           
-
-
-      
-
         }
 
-    }
-}
+        [Test]
+        public void EditTMTest()
+            {
+
+                // home page object
+                HomePage homeObj = new HomePage();
+                homeObj.navigateToTM(driver);
+
+
+                // tm page object
+                TMPage tmObj = new TMPage();
+            tmObj.EditTM(driver);
+
+            }
+        [Test]
+        public void DeleteTMTest()
+            {
+
+                // home page object
+                HomePage homeObj = new HomePage();
+                homeObj.navigateToTM(driver);
+
+
+                // tm page object
+                TMPage tmObj = new TMPage();
+                tmObj.deleteTM(driver);
+         }
         
+
+    }
+ }
+
+
